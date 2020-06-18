@@ -7,7 +7,7 @@ pipeline {
 		stage('Cleanup') {
 			steps {
 				echo 'Removing old configuration...'
-                                sh 'rm -rf /var/lib/jenkins/workspace/ansible-flask/*.retry'
+                                sh 'rm -rf /var/lib/jenkins/workspace/ansible-mysql/*.retry'
 			}
 		}
 		stage('Check') {
