@@ -1,0 +1,36 @@
+---
+- name: Install mysql
+  hosts: all
+  become: true
+  remote_user: centos
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+  - name: Install mysql
+    yum: name={{ item }} state=latest
+    loop: ['mariadb', 'mariadb-server', 'MySQL-python']
+       
+  - name: Start mysql service
+    service: name=mariadb enabled=true state=started
+  
+  - name: Install firewalld
+    yum: name=firewalld state=latest 
+
+  - name: firewalld enable and running
+    service: name=firewalld enabled=true state=started
+
+  - name: add port
+    firewalld: port=3306/tcp permanent=yes state=enabled immediate=yes
+
+  - name: Removes all anonymous user accounts
+    mysql_user: name='' host_all=yes state=absent
+
+  - name: Remove the test database
+    mysql_db: name=test state=absent
+
+  - name: Create admin user for mysql
+    mysql_user: user=admin password={{ mysql_root_password }} priv=*.*:ALL,GRANT host=% state=present
+  
+  - name: Create a new database 
+    mysql_db: name=probando state=present
