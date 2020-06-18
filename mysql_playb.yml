@@ -1,6 +1,6 @@
 ---
 - name: Install mysql
-  hosts: all
+  hosts: mysql_servers
   become: true
   remote_user: centos
   vars_files:

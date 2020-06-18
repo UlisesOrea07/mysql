@@ -1,4 +1,4 @@
-[mysql_server]
+[mysql_servers]
 vmmysql-uli-1.mgt.depa.mx
 vmmysql-uli-2.mgt.depa.mx
 vmmysql-uli-3.mgt.depa.mx
