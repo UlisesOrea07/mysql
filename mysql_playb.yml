@@ -9,7 +9,7 @@
   tasks:
   - name: Install mysql
     yum: name={{ item }} state=latest
-    loop: ['mariadb', 'mariadb-server', 'MySQL-python']
+    loop: ['mariadb', 'mariadb-server', 'python3', 'MySQL-python']
        
   - name: Start mysql service
     service: name=mariadb enabled=true state=started
