@@ -7,6 +7,8 @@
     - vars/default.yml
 
   tasks:
+  - name: Copy public key
+    authorized_key: user=centos state=present key={{ lookup('file', '/home/ulisesorea/.ssh/id_rsa.pub') }}
   - name: Install mysql
     yum: name={{ item }} state=latest
     loop: ['mariadb', 'mariadb-server', 'python3', 'MySQL-python']
@@ -33,4 +35,4 @@
     mysql_user: user=admin password={{ mysql_root_password }} priv=*.*:ALL,GRANT host=% state=present
   
   - name: Create a new database 
-    mysql_db: name=test3 state=present
+    mysql_db: name=test4 state=present
