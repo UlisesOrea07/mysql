@@ -7,8 +7,22 @@
     - vars/default.yml
 
   tasks:
+  
+  - name: get user
+    become: false
+    command: "whoami"
+    state: present
+    register: user
+    delegate_to: localhost
+    
+  - name: remove host of known host
+    known_hosts:
+      path: /homne/{{ user.stdout }}/.ssh/known_hosts
+      name: "{{ ansible_ssh_host }}"
+      state: absent
+
   - name: Copy public key
-    authorized_key: user=centos state=present key={{ lookup('file', '/home/ulisesorea/.ssh/id_rsa.pub') }}
+    authorized_key: user=centos state=present key={{ lookup('file', '/home/{{ user.stdout }}/.ssh/id_rsa.pub') }}
   - name: Install mysql
     yum: name={{ item }} state=latest
     loop: ['mariadb', 'mariadb-server', 'python3', 'MySQL-python']
