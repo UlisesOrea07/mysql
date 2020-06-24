@@ -11,7 +11,6 @@
   - name: get user
     become: false
     command: whoami
-    state: present
     register: user
     delegate_to: localhost
     
