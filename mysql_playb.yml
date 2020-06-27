@@ -34,4 +34,4 @@
     mysql_user: user=admin password={{ mysql_root_password }} priv=*.*:ALL,GRANT host=% state=present
   
   - name: Create a new database 
-    mysql_db: name=test4 state=present
+    mysql_db: name=test5 state=present
